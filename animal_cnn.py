@@ -2,7 +2,7 @@
 #Sequentialはニューラルネットワークのモデルを定義
 from keras.models import Sequential
 #Conv,MaxPoolは畳み込み等の関数元
-from keras.layers import Convolution2D, MaxPool2D
+from keras.layers import Conv2D, MaxPool2D
 #Kerasの便利関数達
 from keras.layers import Activation,Dropout, Flatten,Dense
 #numpy用の関数群を定義
@@ -30,3 +30,9 @@ def main():
     #model関数を
     model = model_train(X_train,Y_train)
     model_eval(model,X_test,Y_test)
+
+def model_train():
+    model = Sequential()
+    model.add(Conv2(32,(3,3),padding='same',input_shape=X_train.shape[1:]))
+    model.add(Conv2D(32,(3,3)))
+    model.add(Activation('relu'))
