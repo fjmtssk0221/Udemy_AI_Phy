@@ -31,8 +31,29 @@ def main():
     model = model_train(X_train,Y_train)
     model_eval(model,X_test,Y_test)
 
+#Kerasの
 def model_train():
     model = Sequential()
+    #padding　畳み込み
+    #shape[1:]=>x_trainの形を確認する関数
+    #x_trainは[450(個数),50(X),50(Y),3(RGB)]で1項目を除いての[50,50,3]を取り出す
     model.add(Conv2(32,(3,3),padding='same',input_shape=X_train.shape[1:]))
+    model.add(Activation('relu'))#非負にする（－は０にする）
     model.add(Conv2D(32,(3,3)))
     model.add(Activation('relu'))
+    model.add(Maxpooling2D(pool_size=(2,2)))#2×2の中で最も数字の大きいものを取り出す
+    model.add(Dropout(0.25))#25％捨てる
+
+    model.add(Conv2D(64,(3,3),padding ='same')
+    model.add(Activation('relu'))
+    model.add(Conv2D(64,(3,3)))
+    model.add(Activation('relu'))
+    model.add(Maxpooling2D(pool_size=(2,2)))#2×2の中で最も数字の大きいものを取り出す
+    model.add(Dropout(0.25))#25％捨てる
+
+    model.add(Flatten())
+    model.add(Dense(512))
+    model.add(Activation('relu'))
+    model.add(Dropout(0.5))#50％捨てる
+    model.add(Dense(3))
+    model.add(Activation('softmax'))
